@@ -1,0 +1,21 @@
+name: 自动发布
+on:
+  push:
+    tags:
+      - "v3.21.1"  # 匹配 v1.0.0 这样的标签
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 拉取代码
+        uses: actions/checkout@v5
+      
+      - name: 创建发布
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            LICENSE
+            README.md
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
